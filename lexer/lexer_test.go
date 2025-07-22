@@ -1,32 +1,33 @@
 // lexer/lexer.go
 
-
 package lexer
-import ( 
-	"testing"
+
+import (
 	"interpreter/token"
+	"testing"
 )
 
 func TestNextToken(t *testing.T) {
-	input := "let five = 5;
+	input := `let five = 5;
 	let ten = 10;
 	
 	let add = fn(x, y){
-	x + y};
-	let result = add(five, ten)"
+		x + y};
+	let result = add(five, ten);`
+
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
 		{token.IDENT, "five"},
-		{token,ASSIGN, "="},
+		{token.ASSIGN, "="},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "ten"},
 		{token.ASSIGN, "="},
-		{token.INT , "10"},
+		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "add"},
@@ -42,10 +43,11 @@ func TestNextToken(t *testing.T) {
 		{token.PLUS, "+"},
 		{token.IDENT, "y"},
 		{token.RBRACE, "}"},
+		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "result"},
 		{token.ASSIGN, "="},
-		{token.CALL, "add"},
+		{token.IDENT, "add"},
 		{token.LPAREN, "("},
 		{token.IDENT, "five"},
 		{token.COMMA, ","},
